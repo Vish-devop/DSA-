@@ -93,3 +93,38 @@ def pattern6(n):
             print(j,end=" ")
         print()
 print(pattern6(12)) 
+
+'''
+Pattern(7) -> 
+1
+2 6
+3 7 10 
+4 8 11 13
+5 9 12 14 15
+'''
+'''
+n=5
+row=5, col 5
+
+4
+4 3
+4 3 2
+4 3 2 1
+
+start with i and end with 
+n-1+j
+'''
+print("Pattern(7) -> ")
+def pattern(n): 
+    y=1
+    for i in range(1, n+1):
+        x=y
+        for j in range(i): 
+            print(x, end=" ")
+            x+=n-j-1
+        print()
+        y+=1
+print(pattern(5))
+        
+        
+            
