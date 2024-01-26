@@ -85,6 +85,7 @@ Pattern(6) ->
 12
 1
 '''
+
 print("Pattern(6) -> ")
 def pattern6(n): 
     for row in range(n,0,-1):
