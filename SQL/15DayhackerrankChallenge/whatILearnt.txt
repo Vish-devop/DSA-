@@ -1,0 +1,10 @@
+Topics Learnt in this challenge: 
+1. Distinct -> used for printing unique elements.
+2. REGEXP -> used for regular expression. 
+    2.1) "^" is metacharater which indicates strings starting with..
+    2.2) "$" is metacharater which indicates string ending with .... 
+3. Count -> counts the total element present into table. 
+4. substring -> finds a substring from a string. 
+5. Order by clause -> 
+6. where clause -> 
+7. round(), max(), min(), avg() functions
