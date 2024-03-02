@@ -196,5 +196,112 @@ select max(population) - min(population)
 from city;
 
 /*
-- Problem (26): 
+- Problem (26): Average Population of each continent
+- Problem Stmt: Given the CITY and COUNTRY tables, query the names of all the continents (COUNTRY.Continent) and their respective average city populations (CITY.Population) rounded down to the nearest integer.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+Explanation: Using Full-Join && ON -> used for specifying the condition in join.
 */
+select country.continent,
+        floor(avg(city.population))
+    from city
+join country on city.countrycode=country.Code
+group by country.continent;
+
+/*
+- Problem (27): African Cities
+- Problm stmt: Given the CITY and COUNTRY tables, query the names of all cities where the CONTINENT is 'Africa'.
+Note: CITY.CountryCode and COUNTRY.Code are matching key columns.
+- Explanation: used full join.
+*/
+select city.name 
+from city
+join country on city.countrycode=country.Code
+where country.continent='Africa';
+
+/*
+- Problem (28): Population Census
+- Problem stmt: Given the CITY and COUNTRY tables, query the sum of the populations of all cities where the CONTINENT is 'Asia'.
+*/
+select sum(city.population) 
+from city
+join country on country.code=city.countrycode
+where country.continent='Asia';
+
+/*
+Problem (29): Weather Observation Station 13
+Problem Stmt: Query the sum of Northern Latitudes (LAT_N) from STATION having values greater than 38.7880 and less than 137.2345. Truncate your answer to 4 decimal places.
+*/
+select round(sum(lat_n),4)
+from station
+where lat_n > 38.7880 and lat_n < 137.2345;
+
+/*
+Problem (30): Weather Observation Station 14
+Problem Stmt: Query the greatest value of the Northern Latitudes (LAT_N) from STATION that is less than 137.2345. Truncate your answer to 4 decimal places.
+*/
+select round(max(lat_n),4)
+from station
+where lat_n < 137.2345;
+
+/*
+Problem (31): Weather Observation Station 15
+Problem Stmt: Query the Western Longitude (LONG_W) for the largest Northern Latitude (LAT_N) in STATION that is less than 137.2345. Round your 4 answer to  decimal places.
+*/
+select round(long_w,4)
+from station
+where lat_n = 
+(select max(lat_n)
+from station
+where lat_n < 137.2345);
+
+/*
+- Problem (32): Weather Observation Station 16
+- Problem stmt: Query the smallest Northern Latitude (LAT_N) from STATION that is greater than 38.7780. Round your answer to 4 decimal places.
+*/
+select round(lat_n,4)
+from station
+where lat_n = 
+(select min(lat_n)
+from station
+where lat_n > 38.7780);
+
+/* 
+- Problem (33): Weather Observation Station 17
+- Problem stmt: Query the Western Longitude (LONG_W)where the smallest Northern Latitude (LAT_N) in STATION is greater than 38.7780 . Round your answer to 4 decimal places.
+*/
+select round(long_w,4)
+from station
+where lat_n = 
+(select min(lat_n)
+from station
+where lat_n > 38.7780);
+
+/*
+- Problem (34): Weather Observation Station 18
+- Problem stmt: Consider p1(a,b) and p2(c,d) to be two points on a 2D plane.
+
+ a happens to equal the minimum value in Northern Latitude (LAT_N in STATION).
+ b happens to equal the minimum value in Western Longitude (LONG_W in STATION).
+ c happens to equal the maximum value in Northern Latitude (LAT_N in STATION).
+ d happens to equal the maximum value in Western Longitude (LONG_W in STATION).
+Query the Manhattan Distance between points p1 and p2 and round it to a scale of 4 decimal places.
+*/
+select round(max(lat_n)-min(lat_n) + max(long_w)-min(long_w),4) from station;
+
+/*
+- Problem (35): Top Earns
+- Problem stmt: We define an employee's total earnings to be their monthly salary x months worked, and the maximum total earnings to be the maximum total earnings for any employee in the Employee table. Write a query to find the maximum total earnings for all employees as well as the total number of employees who have maximum total earnings. Then print these values as 2 space-separated integers.
+*/
+select max(salary * months), count(*) 
+from employee
+where salary*months=
+(select max(salary*months)
+from employee);
+
+/*
+Problem (36): The Blunder
+Problem stmt: Samantha was tasked with calculating the average monthly salaries for all employees in the EMPLOYEES table, but did not realize her keyboard's 0 key was broken until after completing the calculation. She wants your help finding the difference between her miscalculation (using salaries with any zeros removed), and the actual average salary.
+Write a query calculating the amount of error (i.e.:  actual - miscalculated  average monthly salaries), and round it up to the next integer.
+*/
+select ceil(avg(salary) - avg(cast(replace(salary, "0", '') as float)))
+from employees;
